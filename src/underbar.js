@@ -41,7 +41,7 @@
     if (n > array.length) {
       return array;
     }
-    return n === undefined ? array[array.length -1] : array.slice(array.length - n, array.lengths);
+    return n === undefined ? array[array.length -1] : array.slice(array.length - n, array.length);
   };
 
   // Call iterator(value, key, collection) for each element of collection.
@@ -80,6 +80,13 @@
 
   // Return all elements of an array that pass a truth test.
   _.filter = function(collection, test) {
+    var results = [];
+    _.each(collection, function(value, i, collection) {
+      if (test(value)) {
+        results.push(value);
+      }
+    });
+    return results;
   };
 
   // Return all elements of an array that don't pass a truth test.

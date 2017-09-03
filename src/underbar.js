@@ -109,6 +109,15 @@
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array, isSorted, iterator) {
+    var results = [];
+
+    _.each(array, function(value, i) {
+      if(_.indexOf(results, value) === -1) {
+        results.push(value);
+      }
+    });
+
+    return results;
   };
 
 
@@ -117,6 +126,14 @@
     // map() is a useful primitive iteration function that works a lot
     // like each(), but in addition to running the operation on all
     // the members, it also maintains an array of results.
+
+    var results = [];
+
+    _.each(collection, function(value, i, collection) {
+      results.push(iterator(value, i, collection))
+    })
+
+    return results;
   };
 
   /*

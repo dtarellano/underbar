@@ -209,7 +209,7 @@
     return _.reduce(collection, function(accumulator, value) {
 
       return Boolean(iterator(value)) && accumulator;
-    }, true)
+    }, true);
   };
 
   // Determine whether any of the elements pass a truth test. If no iterator is
@@ -220,7 +220,7 @@
 
     return !_.every(collection, function(value) {
       return !iterator(value);
-    })
+    });
   };
 
 
@@ -305,6 +305,17 @@
   // already computed the result for the given argument and return that value
   // instead if possible.
   _.memoize = function(func) {
+    var store = {};
+
+    return function() {
+      var args = JSON.stringify(arguments);
+
+      if (!store.hasOwnProperty(args)) {
+        store[args] = func.apply(this, arguments);
+      }
+      return store[args];
+    };
+
   };
 
   // Delays a function for the given number of milliseconds, and then calls
